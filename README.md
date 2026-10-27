@@ -21,6 +21,75 @@ STEP 5: Remove outliers using IQR
 STEP 6: Use zscore of to remove outliers
 
 # Coding and Output
-            <<include your coding and its corressponding output screen shots here>>
+
+```
+import pandas as pd
+from google.colab import files
+import io
+
+uploaded = files.upload()
+
+filename = next(iter(uploaded))
+df = pd.read_csv(io.BytesIO(uploaded[filename]))
+
+
+print("Missing values:")
+print(df.isnull().sum())
+
+print("\nDuplicate registration numbers:")
+print(df[df.duplicated("REGNO", keep=False)])
+
+marks = ["M1", "M2", "M3", "M4"]
+
+df[marks + ["TOTAL"]] = df[marks + ["TOTAL"]].apply(
+    pd.to_numeric, errors="coerce"
+)
+
+calculated_total = df[marks].sum(axis=1, min_count=4)
+
+print("\nInconsistent total marks:")
+print(df[df["TOTAL"] != calculated_total])
+
+
+df = df.drop_duplicates()
+
+output_file = "SAMPLEIDS_cleaned.csv"
+df.to_csv(output_file, index=False)
+
+print("\nCleaning completed!")
+
+files.download(output_file)
+
+```
+## output
+
+<img width="1036" height="808" alt="image" src="https://github.com/user-attachments/assets/38635f25-bba3-4a9b-9406-718b6bed8163" />
+
+```
+
+import pandas as pd
+from google.colab import files
+import io
+
+uploaded = files.upload()
+df = pd.read_csv(io.BytesIO(uploaded["heights.csv"]))
+
+Q1 = df["height"].quantile(0.25)
+Q3 = df["height"].quantile(0.75)
+
+IQR = Q3 - Q1
+
+lower = Q1 - 1.5 * IQR
+upper = Q3 + 1.5 * IQR
+
+outliers = df[(df["height"] < lower) | (df["height"] > upper)]
+
+print("Unusual height measurements:")
+print(outliers)
+```
+## output
+<img width="728" height="170" alt="image" src="https://github.com/user-attachments/assets/10991d4a-a256-431a-86c5-339e7513f4ed" />
+
+
 # Result
-          <<include your Result here>>
+Thus the given data successfully performed data cleaning and saved the cleaned data to a file.
