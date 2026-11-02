@@ -90,6 +90,28 @@ print(outliers)
 ## output
 <img width="728" height="170" alt="image" src="https://github.com/user-attachments/assets/10991d4a-a256-431a-86c5-339e7513f4ed" />
 
+# summary
+
+Pandas is a popular Python library used for data analysis and manipulation.
+
+CSV (Comma-Separated Values) stores data in rows and columns.
+
+import pandas as pd is used to import the Pandas library.
+
+files.upload() is used to upload CSV files in Google Colab.
+
+pd.read_csv() is used to read CSV files into a DataFrame.
+
+A DataFrame is a two-dimensional structure containing rows and columns.
+
+Outliers are unusual values that differ significantly from other data values.
+
+The IQR method is used to detect outliers using Q1 and Q3.
+
+IQR = Q3 − Q1, Lower Limit = Q1 − 1.5 × IQR, Upper Limit = Q3 + 1.5 × IQR.
+
+Pandas helps clean data, improve data quality, and prepare datasets for machine learning.
+
 
 # Result
 Thus the given data successfully performed data cleaning and saved the cleaned data to a file.
